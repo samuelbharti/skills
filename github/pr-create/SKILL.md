@@ -4,7 +4,7 @@ description: Creates a pull request from current changes, monitors GitHub CI, an
 compatibility: Designed for Claude Code; requires TaskCreate, TaskUpdate, and TaskList tools
 metadata:
   author: Garrick Aden-Buie (@gadenbuie)
-  version: "1.3"
+  version: "1.4"
 license: MIT
 ---
 
@@ -175,13 +175,9 @@ Verification: include an example that demonstrates the changes in the PR as seen
 - If no reviewer was given, ask in the same `AskUserQuestion` call whether they want to request a review from anyone (free-text, optional).
 
 **Resolving a reviewer by name (not handle):**
-If the reviewer value doesn't look like a GitHub handle (no `@`, not clearly a username), look up the correct handle:
+If the reviewer value doesn't look like a GitHub handle (no `@`, not clearly a username), look up the correct handle from collaborators with push access:
 ```bash
-# Check recent contributors in the repo first
-gh api repos/{owner}/{repo}/contributors --jq '.[].login' | head -20
-
-# Search GitHub users if not found in contributors
-gh api search/users?q=<name>+in:name --jq '.items[] | "\(.login) \(.name // "")"' | head -10
+scripts/find-collaborator.sh {owner}/{repo} "<name>"
 ```
 Confirm the resolved handle with the user before storing it.
 
