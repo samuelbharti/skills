@@ -24,10 +24,11 @@
     },
     {
       "name": "github",
-      "description": "Skills for GitHub pull request workflows — creating PRs, addressing review feedback, and resolving threads",
+      "description": "Skills for GitHub workflows — triaging issues, creating PRs, addressing review feedback, and resolving threads",
       "source": "./",
       "strict": false,
       "skills": [
+        "./github/issue-triage",
         "./github/pr-create",
         "./github/pr-threads-address",
         "./github/pr-threads-resolve"
